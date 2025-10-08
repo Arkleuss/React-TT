@@ -1,0 +1,210 @@
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row auto;
+    z-index: 1000;
+    min-width: 100vw;
+    background-image: url("https://i.ibb.co/ZnyNLMD/navredscale.webp");
+    background-size: cover;
+}
+    .logo-container{    
+        display: flex;
+        max-height: 100px;
+        width: 300px;
+        margin: 0%;
+        background-color: black;
+    }
+        .logo-icon{
+            margin-top: 10px;
+            margin-left: 30px;
+            margin-bottom: 5px;
+            height: 75px;
+            aspect-ratio: auto 60/90;
+        }
+        .logo-text{
+        color: whitesmoke; 
+        font-size: 1rem; 
+        font-family: "Uncial Antiqua";
+        align-content: center;
+        text-decoration: none;
+        
+        }
+        a{
+        color: whitesmoke; 
+        font-size: 1rem; 
+        font-family: "Uncial Antiqua";
+        align-content: center;
+        text-decoration: none;
+        }
+        p{
+        color: whitesmoke; 
+        font-size: 1rem; 
+        font-family: "Uncial Antiqua";
+        align-content: center;
+        text-decoration: none;
+        }
+        h2{
+        font-family: "Eagle Lake";
+        font-size: 1em;
+        color: whitesmoke;
+        }
+        .nav-container{
+        display: flex;
+        margin-left: auto;
+        width: 70%;
+        }
+        .nav-item{
+            margin: 20px;
+            color: whitesmoke;
+            font-family: "Uncial Antiqua";
+            align-content: center;
+            text-decoration: none;
+        }
+        .carrito_header{
+        display: flex;
+        margin-right: auto;
+        align-items: center;
+        }
+        .btn_carrito{
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            
+            position: fixed;
+            margin-right: 10px;
+            margin-top: 10px;
+            right: 10px;
+            z-index: 2000;
+            flex-wrap: wrap;
+        }
+        .btn_hamburguesa{
+            background: black;
+            border: none;
+            color: whitesmoke;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+        .nav-container-hamburguesa{
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            position:fixed;
+            z-index: 1000;
+            background-color: rgba(34, 34, 34, 0.8);
+            max-width: 20vw;
+            min-width: 150px;
+            justify-content: space-between;
+            
+        }
+        .nav-item-h{
+        margin: 20px;
+        color: whitesmoke;
+        font-family: "Uncial Antiqua";
+        align-content: center;
+        text-decoration: none;
+    }
+
+body {
+    margin: 0%;
+    z-index: 500;
+    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    
+    background-image: url("../src/img/3d-grunge-room-interior-with-spotlight-smoky-atmosphere-background.jpg"); /*"../img/abstract-background-with-red-lines.jpg")*/
+    background-size:cover;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    min-height: 100vh;
+    height: fit-content;
+    margin-left: 0px;
+    flex: 1;
+
+}
+
+footer{
+    
+    display: grid;
+    background-image: url(https://i.ibb.co/ZnyNLMD/navredscale.webp);
+    z-index: 300;
+    grid-template-columns: 25%, 25%,25%,25%;
+    margin-bottom: 0px;
+    bottom: 0px;
+    position:relative;
+    
+    
+    width:100vw;
+
+}
+    .footer-text{
+        color: whitesmoke;
+        font-family: "Uncial Antiqua";
+        text-align: left;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-size: 1em;
+        margin-top: 10px;
+        grid-column: 1/2;
+    }
+    .redes{
+        display: flex;
+        grid-column: 4/4;
+        justify-content: center;
+        align-items: center
+    }
+    .redesicon{
+        padding: 10px;
+        ;
+        font-size: 30px;
+        color: whitesmoke;
+    }
+
+@media (max-width: 950px) {
+    body{
+        
+        background-size:cover;
+    }
+    .btn_hamburguesa{
+        display: block;
+    }
+    .nav-container{
+        display: none;
+    }
+    .logo-container{
+        max-width: 130px;
+        
+    }
+    .logo-text{
+        
+        display: none;
+    }
+    
+    .carrito_header{
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
+    }
+    
+}

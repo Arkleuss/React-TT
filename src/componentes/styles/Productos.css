@@ -1,0 +1,55 @@
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.col{
+    min-width: 18rem; 
+    max-width: 25vw;  
+    
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    min-width: 18rem;
+    max-width: 25vw;
+    background-color: rgb(50, 40, 40);
+    margin: 10px;
+    aspect-ratio: 4/3;
+}
+.card-img-top{
+    min-width: 18rem;
+    max-width: 333px;
+    object-fit:cover;
+    aspect-ratio: 4/3;
+}
+.card-title{
+    font-family: "Uncial Antiqua";
+    text-align: center;
+    font-size: auto;
+    font-size: 1em ;
+    color: whitesmoke;
+}
+.card-text{
+    font-family: "Uncial Antiqua";
+    text-align: center;
+    font-size: auto;
+    font-size: 1em ;
+    color: whitesmoke;
+}
+.btn-producto{
+        background-color: rgb(34, 34, 34);
+        color: whitesmoke;
+        font-family: "Eagle Lake";
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        width: 100%;
+
+}
+:hover.btn-producto{
+    box-shadow:  6px 6px 6px rgba(245, 157, 157, 0.442);
+    color: whitesmoke;
+}
