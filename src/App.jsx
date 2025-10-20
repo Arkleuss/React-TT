@@ -10,7 +10,7 @@ import Contacto from './componentes/Contacto';
 import Productos from "./componentes/Productos"
 import './App.css'
 import "./index.css"
-
+import { useAppContext } from './context/AppContext';
 
 
 function App() {
@@ -18,18 +18,19 @@ function App() {
   
 
   return (
-    <>  
-      <Header/>
-      <main>
+  <>
+      
+        <Header/>
+        <main>
         <Routes>
-        <Route path="/" element={ <Main />} />
-        <Route path="Gallery" element={ <Gallery /> } />
-        <Route path='Productos/:categoria' element={<Productos/>}/>
-        <Route path="Contacto" element={ <Contacto /> } />
-      </Routes>
-      </main>
-      <Footer />
-
+          <Route path="/" element={ <Main />} />
+          {/* <Route path="Gallery" element={ <Gallery /> } /> */}
+          <Route path='Productos/:categoria' element={<Productos/>}/>
+          <Route path="Contacto" element={ <Contacto /> } />
+        </Routes>
+        </main>
+        <Footer />
+      
     </>
   );
 }

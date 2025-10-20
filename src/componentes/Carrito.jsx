@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import "./styles/Carrito.css"
+import { useAppContext } from "../context/AppContext";
 
-export default function CarritoCompras({ carrito, setCarrito }) {
-    const vaciarCarrito = () => {
-        setCarrito([]);
-    };
+
+
+export default function CarritoCompras() {
     
+    const {carrito, setCarrito, vaciarCarrito, eliminarDelCarrito } = useAppContext();
 
     const total = carrito.reduce((sum, item) => sum + Number(item.precio), 0);
 

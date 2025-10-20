@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { Link, } from "react-router-dom";
 import CarritoCompras from "./Carrito";
-
+import { useAppContext } from "../context/AppContext";
 
 function Header() {
+
+    const {carrito} = useAppContext()
+
     const [menuVisible, setMenuVisible] = useState(false);
     const MostrarMenuHamburguesa = () => {
         setMenuVisible(!menuVisible)
@@ -25,11 +28,11 @@ function Header() {
         <header>
         <div className="logo-container">
             <button 
-                class="btn_hamburguesa" 
+                className="btn_hamburguesa" 
                 id="btn-hamburguesa" 
                 aria-label="Menu" 
                 onClick={MostrarMenuHamburguesa}>
-                    <i class="fa-solid fa-bars"></i>
+                    <i className="fa-solid fa-bars"></i>
             </button>
             <img  className="logo-icon" src="https://i.ibb.co/277Mkxrw/logo.webp" alt="logo de un dragon y un martillo"></img>
             <Link to="/" className="logo-text">La Forja del Dragon</Link>
@@ -42,7 +45,11 @@ function Header() {
                 <Link to="Contacto" className="nav-item">Contacto</Link>
         </div>
         <div className="carrito_header">
-                <button className="btn_carrito" id="boton-carrito" aria-label="carrito"><a className="redesicon"target="_blank"><i className="fa-solid fa-cart-shopping"></i></a></button>
+                <button className="btn_carrito" id="boton-carrito" aria-label="carrito">
+                    <a className="redesicon"target="_blank">
+                        <i className="fa-solid fa-cart-shopping"></i>
+                    </a>
+                </button>
                 
         </div>
         </header>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import CarritoCompras from "./Carrito";
 import "./styles/Productos.css"
+import {useAppContext} from "../context/AppContext"
 
 function Layout({ children }) {
     return (
@@ -16,9 +17,11 @@ function Layout({ children }) {
 }
 
 
-function ListaProductos({ agregarAlCarrito, categoria }) {
+function ListaProductos({categoria,  }) {
     const [productos, setProductos] = useState([]);
     const [error, setError] = useState(null);
+
+    const {carrito, agregarAlCarrito} = useAppContext();
     
     useEffect (() => {
         fetch("https://68d9b97290a75154f0db05e8.mockapi.io/api/productos")
@@ -51,13 +54,8 @@ function ListaProductos({ agregarAlCarrito, categoria }) {
 }
 
 function Productos() {
-    const [carrito, setCarrito] = useState([]);
     const { categoria = "todos" } = useParams();
-
-    const agregarAlCarrito = (producto) => {
-        setCarrito([...carrito, producto]);
-    };
-
+    const {carrito, agregarAlCarrito, setCarrito} = useAppContext();
     return (
         <Layout>
         <ListaProductos agregarAlCarrito={agregarAlCarrito} categoria={categoria}/>
