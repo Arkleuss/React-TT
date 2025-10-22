@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react'
 import Header from './componentes/Header'
 import Main from './componentes/Main'
-import Footer from './componentes/footer'
+import Footer from './componentes/Footer'
 import Contacto from './componentes/Contacto';
 import Productos from "./componentes/Productos"
 import ProductoDetalle from './componentes/DetalleProductos'
