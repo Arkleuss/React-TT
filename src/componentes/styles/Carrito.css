@@ -1,9 +1,11 @@
 .carrito-container{
     display: auto;
-        position: absolute;
+        position: sticky;
+        position:fixed;
+        z-index: 1000;
         background-color: rgba(34, 34, 34, 0.8);
         top: 100px;
-        right: 0%;
+        right: 0px;
         width: 300px;
         align-content: center;
         text-align: center;

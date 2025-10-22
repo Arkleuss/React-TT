@@ -2,12 +2,14 @@ import React, {useState, useEffect} from "react";
 import { Link, } from "react-router-dom";
 import CarritoCompras from "./Carrito";
 import { useAppContext } from "../context/AppContext";
+import "./styles/Carrito.css"
 
 function Header() {
 
-    const {carrito} = useAppContext()
+    const {carrito, setCarrito, carritoVisible, setCarritoVisible} = useAppContext()
 
     const [menuVisible, setMenuVisible] = useState(false);
+    
     const MostrarMenuHamburguesa = () => {
         setMenuVisible(!menuVisible)
     };
@@ -22,6 +24,10 @@ function Header() {
         return () => window.removeEventListener("resize", handleResize);
     }, [menuVisible]);
 
+    const MostrarCarrito = () => {
+        setCarritoVisible(!carritoVisible)
+    };
+    
 
     return(
     <>
@@ -45,10 +51,13 @@ function Header() {
                 <Link to="Contacto" className="nav-item">Contacto</Link>
         </div>
         <div className="carrito_header">
-                <button className="btn_carrito" id="boton-carrito" aria-label="carrito">
-                    <a className="redesicon"target="_blank">
+                <button className="btn_carrito" 
+                id="boton-carrito" 
+                aria-label="carrito" 
+                onClick={MostrarCarrito}>
+                    <span className="redesicon"target="_blank">
                         <i className="fa-solid fa-cart-shopping"></i>
-                    </a>
+                    </span>
                 </button>
                 
         </div>
@@ -63,7 +72,7 @@ function Header() {
                 <Link to="Productos/remeras" className="nav-item-h">Remeras</Link>
                 <Link to="Contacto" className="nav-item-h">Contacto</Link>
         </div>
-        
+        <CarritoCompras carrito={carrito} setCarrito={setCarrito} />
     </>
     );
 

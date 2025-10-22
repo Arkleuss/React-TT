@@ -18,9 +18,20 @@ export function AppProvider ({children}) {
 
     // const de carrito 
     const [carrito, setCarrito] = useState([]);
+    const [carritoVisible, setCarritoVisible] = useState(false);
 
     const agregarAlCarrito = (producto) => {
-        setCarrito([...carrito, producto]);
+        if (!carrito.find(item => item.id === producto.id)) {
+            setCarrito([...carrito, producto]);
+        }else { 
+            carrito.forEach(item => {
+                if (item.id === producto.id) {
+                    item.cant += 1;
+                    item.precio = (item.precio * item.cant).toFixed(2);
+                }
+            });
+            setCarrito([...carrito]);
+        }
     };
     const vaciarCarrito = () => {
         setCarrito([]);
@@ -28,6 +39,8 @@ export function AppProvider ({children}) {
     const eliminarDelCarrito = (idProducto) => {
         setCarrito(carrito.filter(item => item.id !== idProducto));
     };
+    
+
     //
 
     const value = {
@@ -41,9 +54,11 @@ export function AppProvider ({children}) {
         //carrito
         carrito,
         setCarrito,
+        carritoVisible,
+        setCarritoVisible,
         agregarAlCarrito,
         vaciarCarrito,
-        eliminarDelCarrito
+        eliminarDelCarrito,
 
     }
     return (
