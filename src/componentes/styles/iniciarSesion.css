@@ -1,0 +1,35 @@
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    min-width: 18rem;
+    max-width: 25vw;
+    background-color: rgb(50, 40, 40);
+    margin: 10px;
+    aspect-ratio: 4/3;
+    justify-self: center;
+    padding: 20px;
+    
+}
+h1, h3{
+    font-family: "Uncial Antiqua";
+    text-align: center;
+    color: whitesmoke;
+}
+#botonera{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.formField{
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 5px;
+}
+input{
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border: 0;
+    width: 100%;
+}

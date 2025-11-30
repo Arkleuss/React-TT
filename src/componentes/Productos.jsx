@@ -2,12 +2,17 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CarritoCompras from "./Carrito";
 import "./styles/Productos.css"
+import "./styles/Carrito.css"
 import {useAppContext} from "../context/AppContext"
+import { useAuthContext } from '../context/AuthContext';
+
+
 
 function Layout({ children }) {
+    
     return (
     <div id="tarjeta">
         
@@ -17,13 +22,38 @@ function Layout({ children }) {
     );
 }
 
+function navCategorias() {
+    
+    return (
+        <nav className="nav-categorias">
+            <Link  to="/Productos/todos" className="nav-item">Todos</Link>
+            <Link  to="/Productos/impresiones" className="nav-item">Impresiones</Link>
+            <Link  to="/Productos/dados" className="nav-item">Dados</Link>
+            <Link  to="/Productos/remeras" className="nav-item">Remeras</Link>
+        </nav>
+
+        )
+    }
 
 function ListaProductos({categoria,  }) {
+    const {esAdmin} = useAuthContext();
     const [productos, setProductos] = useState([]);
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();
     const {carrito, agregarAlCarrito} = useAppContext();
     
+    const manejarEliminar = (producto) => {
+        // Navegar a la página de confirmación de eliminación
+        
+        navigate('/eliminar-producto', { state: { producto } });
+    };
+
+    const manejarEditar = (producto) => {
+        // Navegar al formulario de edición
+        
+        navigate('/formulario-producto', { state: { producto } });
+    }; 
+
     useEffect (() => {
         fetch("https://68d9b97290a75154f0db05e8.mockapi.io/api/productos")
         .then((respuesta)=> respuesta.json())
@@ -50,7 +80,23 @@ function ListaProductos({categoria,  }) {
                         <button className="btn-producto">Detalles</button>
                         </Link>
                         <button className="btn-producto" marcador="1"  onClick={() => agregarAlCarrito(producto)}>Comprar</button>
-                        
+                        {/* Botones de admin */}
+                        {esAdmin ? (    
+                        <>         
+                            <button
+                                onClick={() => manejarEditar(producto)}
+                                id="boton-pagar"
+                            >
+                                Editar
+                            </button>
+                            <button
+                                onClick={() => manejarEliminar(producto)}
+                                id="boton-vaciar"
+                            >
+                                Eliminar
+                            </button>
+                        </>  
+                        ): null}
                     </div>
                 </div>
             </div>
@@ -62,8 +108,10 @@ function ListaProductos({categoria,  }) {
 function Productos() {
     const { categoria = "todos" } = useParams();
     const {carrito, agregarAlCarrito, setCarrito} = useAppContext();
+
     return (
         <Layout>
+        {navCategorias()}
         <ListaProductos agregarAlCarrito={agregarAlCarrito} categoria={categoria}/>
         </Layout>
     );

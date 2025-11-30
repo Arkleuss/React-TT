@@ -1,38 +1,51 @@
-import { createContext, useContext, useState } from "react";
-
+import {  createContext, useContext, useState, useEffect } from "react";
+import { Navigate, useLocation } from 'react-router-dom';
+//import { toast } from "react-toastify";
 
 
 export const AppContext = createContext();
 
 export function AppProvider ({children}) {
-    // const de autenticacion 
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [usuario, setUsuario] = useState({usuario: "", mail: ""});
-
-    const cerrarSesion = () => {
-        setIsAuthenticated(false);
-        setUsuario({usuario: "", mail: ""});
-        vaciarCarrito();
-    };
-
-    // const de carrito 
     const [carrito, setCarrito] = useState([]);
     const [carritoVisible, setCarritoVisible] = useState(false);
+    const [cargaCompleta, setCargaCompleta] = useState(false);
+
+    
+    useEffect(() => {
+            const carritoGuardado = localStorage.getItem("carrito"); 
+            if (carritoGuardado) {
+            setCarrito(JSON.parse(carritoGuardado));
+            }
+            setCargaCompleta(true); // Marca que la carga inicial ha terminado
+    }, []);       
+
+    
+    // cada vez que carrito cambie, guardarlo en localStorage
+    useEffect(() => {
+            if (cargaCompleta) { // Solo guarda en localStorage si la carga inicial ha terminado
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            }
+    }, [carrito, cargaCompleta]);
 
     const agregarAlCarrito = (producto) => {
-        if (!carrito.find(item => item.id === producto.id)) {
-            setCarrito([...carrito, producto]);
-        }else { 
-            carrito.forEach(item => {
-                if (item.id === producto.id) {
-                    item.cant += 1;
-                    item.precio = (item.precio * item.cant).toFixed(2);
-                }
-            });
-            setCarrito([...carrito]);
+    setCarrito(prevCarrito => {
+        const productoExistente = prevCarrito.find(item => item.id === producto.id);
+        
+        if (productoExistente) {
+        return prevCarrito.map(item =>
+            item.id === producto.id
+            ? { ...item, cantidad: (item.cantidad || 1) + 1 }
+            : item
+        );
+        } else {
+        return [...prevCarrito, { ...producto, cantidad: 1 }];
         }
+    });
+    //toast(`Producto ${producto.nombre} agregado.`);
     };
+
+    
     const vaciarCarrito = () => {
         setCarrito([]);
     };
@@ -40,18 +53,16 @@ export function AppProvider ({children}) {
         setCarrito(carrito.filter(item => item.id !== idProducto));
     };
     
-
+    const total = carrito.reduce((sum, item) => {
+        const cantidad = item.cantidad || 1;
+        return sum + (Number(item.precio) * cantidad);
+    }, 0);
+    
     //
 
     const value = {
-        //autenticacion
-        isAuthenticated,
-        setIsAuthenticated,
-        usuario,
-        setUsuario,
-        cerrarSesion,
 
-        //carrito
+
         carrito,
         setCarrito,
         carritoVisible,
@@ -59,6 +70,7 @@ export function AppProvider ({children}) {
         agregarAlCarrito,
         vaciarCarrito,
         eliminarDelCarrito,
+        total
 
     }
     return (
@@ -68,7 +80,9 @@ export function AppProvider ({children}) {
 
     );
 
-}
+    }
+
+
 
 export function useAppContext() {
         const   context =useContext(AppContext);

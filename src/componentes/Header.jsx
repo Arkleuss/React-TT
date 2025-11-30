@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { Link, } from "react-router-dom";
 import CarritoCompras from "./Carrito";
 import { useAppContext } from "../context/AppContext";
-import "./styles/Carrito.css"
+import { useAuthContext } from "../context/AuthContext";
+
 
 function Header() {
 
     const {carrito, setCarrito, carritoVisible, setCarritoVisible} = useAppContext()
-
+    const {usuario, cerrarSesion, isAuthenticated, esAdmin } = useAuthContext()
     const [menuVisible, setMenuVisible] = useState(false);
     
     const MostrarMenuHamburguesa = () => {
@@ -44,12 +45,27 @@ function Header() {
             <Link to="/" className="logo-text">La Forja del Dragon</Link>
         </div>
         <div className="nav-container">
-                <Link to="Productos/todos" className="nav-item">Productos</Link>
-                <Link to="Productos/impresiones" className="nav-item">Impresiones</Link>
-                <Link to="Productos/dados" className="nav-item">Dados</Link>
-                <Link to="Productos/remeras" className="nav-item">Remeras</Link>
-                <Link to="Contacto" className="nav-item">Contacto</Link>
+                <Link  to="Productos/todos" className="nav-item">Productos</Link>
+                <Link  to="Contacto" className="nav-item">Contacto</Link>
+                {usuario && esAdmin ? (
+                    <Link to="dashboard" className="nav-item" id="navDashboard">Dashboard</Link>
+                ) : null}
+                
         </div>
+        <div className="nav-container2">
+        <div id="navUser">
+            {isAuthenticated ? (
+                <div className="header-usuario" id="navUser">
+                    <label>Hola, {usuario.nombre}!</label>
+                    <button id="boton-vaciar" className="btnCerrarSesion" style={{fontSize: "0.8rem", inlineSize: "auto"}} onClick={cerrarSesion}>Cerrar sesión</button>
+                </div>
+            ) : (
+                <div className="header-usuario">
+                    <Link to="/iniciar-sesion">Iniciar Sesión</Link>
+                </div>
+            )}
+        </div>
+        
         <div className="carrito_header">
                 <button className="btn_carrito" 
                 id="boton-carrito" 
@@ -61,10 +77,24 @@ function Header() {
                 </button>
                 
         </div>
+        </div>
         </header>
         <div className="nav-container-hamburguesa"
             style={{ display: menuVisible ? "flex" : "none" }}
         >
+                <div className="navUserHamburguesa">
+                    {isAuthenticated ? (
+                        <div className="header-usuario" >
+                            <label>Hola, {usuario.nombre}!</label>
+                            <button id="boton-vaciar" className="btnCerrarSesion" style={{fontSize: "0.8rem", inlineSize: "auto"}} onClick={cerrarSesion}>Cerrar sesión</button>
+                        </div>
+                    ) : (
+                        <div className="header-usuario">
+                            <Link to="/iniciar-sesion">Iniciar Sesión</Link>
+                        </div>
+                    )}
+                    <hr />
+                </div>
                 <Link to="/" className="nav-item-h">Inicio</Link>
                 <Link to="Productos/todos" className="nav-item-h">Productos</Link>
                 <Link to="Productos/impresiones" className="nav-item-h">Impresiones</Link>

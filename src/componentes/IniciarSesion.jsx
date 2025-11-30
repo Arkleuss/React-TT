@@ -1,59 +1,83 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAppContext } from '../context/AppContext';
+import { useAuthContext } from '../context/AuthContext';
+import "./styles/iniciarSesion.css"
+import "./styles/Productos.css"
 
 
 export default function IniciarSesion() {
     const navigate = useNavigate();
     const ubicacion = useLocation();
+    const { iniciarSesion } = useAuthContext();
 
-    const { isAuthenticated, setIsAuthenticated, setUsuario } = useAppContext();
+    const { isAuthenticated, setIsAuthenticated, setUsuario } = useAuthContext();
 
-    const [formulario, setFormulario] = useState({ usuario: "", mail: "" });
+    const [formulario, setFormulario] = useState({ nombre: "", mail: "" });
 
     const manejarEnvio = (e) => {
         e.preventDefault();
-        if (formulario.usuario && formulario.mail) {
-            setIsAuthenticated(true);
-            setUsuario(formulario);
-            console.log(formulario);
-            console.log(isAuthenticated);
+        if (formulario.nombre === "admin" && formulario.mail === "1234@admin") {
+            
+
+            localStorage.setItem("authEmail", formulario.mail);
+            iniciarSesion("admin", formulario.mail);
+            navigate("/dashboard");
+    }else if (
+        formulario.nombre &&
+        formulario.mail &&
+        formulario.nombre !== "admin"
+    ) {
+    localStorage.setItem("authEmail", formulario.mail);
+    iniciarSesion(formulario.nombre, formulario.mail);
+
             
             
-            navigate("/pagar", { state: { carrito: ubicacion.state.carrito } });
-            
+            if (ubicacion.state?.carrito) {
+        navigate("/pagar", { state: { carrito: ubicacion.state.carrito } });
         } else {
-            alert("Completa todos los datos");
+        navigate("/Productos/todos");
         }
+    } else {
+        alert(
+        "Credenciales de administrador incorrectas. Usa: admin / 1234@admin"
+        );
+    }
     };
 
     return (
         <div>
             <h1>Inicia sesión para continuar</h1>
-            <form onSubmit={manejarEnvio}>
+            <form className="formContainer" onSubmit={manejarEnvio}>
+                <p htmlFor="nombre">Nombre completo</p>
                 <input
+                    className="formField"
                     type="text"
-                    placeholder="Nombre completo"
-                    value={formulario.usuario}
+                    name="nombre"
+                    
+                    value={formulario.nombre}
                     onChange={(e) =>
-                        setFormulario({ ...formulario, usuario: e.target.value })
+                        setFormulario({ ...formulario, nombre: e.target.value })
                     }
                     required
                 />
+                <p htmlFor="mail">E-Mail</p>
                 <input
+                    className="formField"
                     type="email"
-                    placeholder="Email"
+                    name="mail"
                     value={formulario.mail}
                     onChange={(e) =>
                         setFormulario({ ...formulario, mail: e.target.value })
                     }
                     required
                 />
-                <button type="submit">Iniciar Sesión</button>
+                <div id="botonera">
+                <button id="boton-pagar" type="submit">Iniciar Sesión</button>
                 <strong> </strong>
-                <button type="button" onClick={() => navigate("/productos")}>
+                <button id="boton-vaciar" type="button" onClick={() => navigate("/Productos/todos")}>
                     Cancelar
                 </button>
+                </div>
             </form>
         </div>
     );
