@@ -2,7 +2,7 @@ import React from 'react';
 import {Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react'
 import Header from './componentes/Header'
-import Main from './componentes/Main'
+import CarrouselMain from './componentes/CarrouselMain'
 import Footer from './componentes/Footer'
 import Contacto from './componentes/Contacto';
 import Productos from "./componentes/Productos"
@@ -35,7 +35,7 @@ function App() {
               <Header/>
               <main>
               <Routes>
-                <Route path="/" element={ <Main />} />
+                <Route path="/" element={ <CarrouselMain />} />
                 {/* <Route path="Gallery" element={ <Gallery /> } /> */}
                 <Route path='Productos/:categoria' element={<Productos/>}/>
                 <Route path="Contacto" element={ <Contacto /> } />

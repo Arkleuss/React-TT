@@ -25,7 +25,7 @@ if (!producto) {
   return(
     <>
     <div className="container">
-      <h2>Detalles del Producto {id}</h2>
+      <h2>Detalles del Producto ID: {id}</h2>
       <div className="producto">
         <div className="imagen">
           <img src={producto.imagen} alt={producto.nombre}  />
@@ -36,6 +36,8 @@ if (!producto) {
                   <h2>{producto.nombre}</h2>
                   
                   <p>Precio: ${producto.precio}</p>
+                  <p>Categoría: {producto.categoria}</p>
+                  <p>Descripción: {producto.descripcion}</p>
                   
               </li>
               <hr />
