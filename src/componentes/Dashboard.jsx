@@ -29,8 +29,7 @@ export default function Dashboard() {
             margin: '10px 0',
             fontSize: '14px',
             }}>
-            <strong>Token de autenticación:</strong>
-            <br />
+            <p><strong>Token de autenticación:</strong></p>
             <code>{tokenActual}</code>
             </div>
 

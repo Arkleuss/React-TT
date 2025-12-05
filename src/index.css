@@ -67,6 +67,11 @@ header{
         align-content: center;
         text-decoration: none;
         }
+        h1, h3{
+        font-family: "Eagle Lake";
+        font-size: 1.2em;
+        color: whitesmoke;
+        }
         h2{
         font-family: "Eagle Lake";
         font-size: 1em;

@@ -45,11 +45,21 @@
         font-family: "Eagle Lake";
         border: none;
         padding: 5px 10px;
+        margin: 1px auto;
         cursor: pointer;
         width: 100%;
+        border-radius: 5px;
 
 }
 :hover.btn-producto{
     box-shadow:  6px 6px 6px rgba(245, 157, 157, 0.442);
+    transform: scale(1.05);
     color: whitesmoke;
+}
+label{
+    font-family: "Uncial Antiqua";
+    display: 'block';
+    margin-bottom: '5px';
+    font-weight: 'bold';
+    color: whitesmoke
 }

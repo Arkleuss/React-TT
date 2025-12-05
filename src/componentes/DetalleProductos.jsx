@@ -25,7 +25,7 @@ if (!producto) {
   return(
     <>
     <div className="container">
-      <h2>Detalles del Producto ID: {id}</h2>
+      <h1>Detalles del Producto ID: {id}</h1>
       <div className="producto">
         <div className="imagen">
           <img src={producto.imagen} alt={producto.nombre}  />
@@ -33,7 +33,7 @@ if (!producto) {
         <div className="info">
           <ul style={{textAlign: "left", }}>
               <li key={producto.id}>
-                  <h2>{producto.nombre}</h2>
+                  <h1>{producto.nombre}</h1>
                   
                   <p>Precio: ${producto.precio}</p>
                   <p>Categoría: {producto.categoria}</p>

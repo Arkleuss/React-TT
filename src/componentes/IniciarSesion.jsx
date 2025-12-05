@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from '../context/AuthContext';
 import "./styles/iniciarSesion.css"
 import "./styles/Productos.css"
+import { toast } from "react-toastify";
 
 
 export default function IniciarSesion() {
@@ -38,7 +39,7 @@ export default function IniciarSesion() {
         navigate("/Productos/todos");
         }
     } else {
-        alert(
+        toast.error(
         "Credenciales de administrador incorrectas. Usa: admin / 1234@admin"
         );
     }

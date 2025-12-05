@@ -19,9 +19,9 @@ import { ProductsProvider } from "./context/ProductContext";
 import FormProducto from './componentes/FormProducto';  
 import Dashboard from './componentes/Dashboard';
 import EliminarProducto from './componentes/EliminarProducto';
-
-//import { ToastContainer } from "react-toastify";
-//import "react-toastify/dist/ReactToastify.css"; 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
+import SEO from './componentes/SEO';
 
 
 function App() {
@@ -34,7 +34,25 @@ function App() {
             
               <Header/>
               <main>
+                
+                <ToastContainer 
+                  position='bottom-right'
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  toastStyle={{
+                    backgroundColor: '#333',
+                    color: '#fff',
+                    boxShadow:  "6px 6px 6px rgba(245, 157, 157, 0.442)"
+
+                  }}
+                  
+                />
+                
               <Routes>
+                
                 <Route path="/" element={ <CarrouselMain />} />
                 {/* <Route path="Gallery" element={ <Gallery /> } /> */}
                 <Route path='Productos/:categoria' element={<Productos/>}/>

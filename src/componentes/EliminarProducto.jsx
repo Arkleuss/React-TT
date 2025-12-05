@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const BASE_URL = 'https://68d9b97290a75154f0db05e8.mockapi.io/api/productos';
 
@@ -43,13 +44,13 @@ function EliminarProducto() {
             const data = await respuesta.json();
             console.log('Eliminado:', data);
 
-            alert('Producto eliminado correctamente.');
+            toast.success('Producto eliminado correctamente.');
             
             // Navegar a la lista de productos (ruta existente) — uso mayúscula para coincidir con rutas en el proyecto
             navigate('/Productos/todos');
         } catch (error) {
             console.error(error);
-            alert('Hubo un problema al eliminar el producto. Revisa la consola y Network.');
+            toast.error('Hubo un problema al eliminar el producto. Revisa la consola y Network.');
         } finally {
             setCargando(false);
         }
@@ -71,23 +72,24 @@ function EliminarProducto() {
 
     return (
         <div style={{ maxWidth: '500px', margin: '40px auto', padding: '20px', textAlign: 'center' }}>
-        <h2 style={{ color: '#dc3545', marginBottom: '20px' }}>Eliminar Producto</h2>
+        <h2 style={{ color: 'whitesmoke', marginBottom: '20px' }}>Eliminar Producto</h2>
         
         <div style={{
             border: '1px solid #ddd',
             borderRadius: '8px',
             padding: '20px',
             marginBottom: '30px',
-            backgroundColor: 'rgba(34, 34, 34, 0.8)'
+            backgroundColor: 'rgb(50, 40, 40)'
         }}>
-            <h3 style={{ color: '#dc3545' }}>¿Estás seguro de que deseas eliminar este producto?</h3>
+            <h3 style={{ color: 'whitesmoke' }}>¿Estás seguro de que deseas eliminar este producto?</h3>
         
             <div style={{ textAlign: 'left', margin: '20px 0' }}>
             <p><strong>Nombre:</strong> {producto.nombre}</p>
             <p><strong>Precio:</strong> ${producto.precio}</p>
             <p><strong>Categoría:</strong> {producto.categoria || 'Sin categoría'}</p>
             <p><strong>Descripción:</strong> {producto.descripcion}</p>
-            {producto.imagen && (
+            <div style={{display: 'flex', justifyContent: "center"}}>
+                {producto.imagen && (
                 <img
                 src={producto.imagen}
                 alt="Producto a eliminar"
@@ -95,8 +97,10 @@ function EliminarProducto() {
                 />
             )}
             </div>
+            
+            </div>
 
-            <p style={{ color: '#666', fontStyle: 'italic' }}>
+            <p style={{ color: '#dc3545', fontStyle: 'italic' }}>
             Esta acción no se puede deshacer. El producto será eliminado permanentemente.
             </p>
         </div>

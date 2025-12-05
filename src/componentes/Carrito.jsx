@@ -1,16 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./styles/Carrito.css"
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+
 
 
 export default function CarritoCompras() {
     
     const {carrito, setCarrito, vaciarCarrito, eliminarDelCarrito, carritoVisible, setCarritoVisible } = useAppContext();
 
-    const total = carrito.reduce((sum, item) => sum + Number(item.precio), 0);
+    const total = carrito.reduce((sum, item) => sum + Number(item.precio) * (item.cant || 1), 0);
 
     const navigate = useNavigate();
+
+    
 
     const irAPagar = () => {
     navigate("/pagar", { state: { carrito } });
@@ -20,7 +23,7 @@ export default function CarritoCompras() {
         <div className="carrito-container" 
         style={{ display: carritoVisible ? "block" : "none" }}
             >
-        <h2>Carrito de Compras</h2>
+        <p>Carrito de Compras</p>
         {carrito.length === 0 ? (
             <p>El carrito está vacío</p>
         ) : (
@@ -37,7 +40,7 @@ export default function CarritoCompras() {
 
             <div>
                 <hr />
-                <h2>Total: ${Number(total).toFixed(3)}</h2>
+                <p>Total: ${Number(total).toFixed(3)}</p>
             </div>
 
             <button id="boton-pagar" onClick={irAPagar}>

@@ -1,6 +1,6 @@
 import {  createContext, useContext, useState, useEffect } from "react";
 import { Navigate, useLocation } from 'react-router-dom';
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 export const AppContext = createContext();
@@ -35,15 +35,22 @@ export function AppProvider ({children}) {
         if (productoExistente) {
         return prevCarrito.map(item =>
             item.id === producto.id
-            ? { ...item, cantidad: (item.cantidad || 1) + 1 }
+            ? { ...item, cant: (item.cant || 1) + 1 }
             : item
+
+            
         );
         } else {
-        return [...prevCarrito, { ...producto, cantidad: 1 }];
+        return [...prevCarrito, { ...producto, cant: 1 }];
+        
         }
+        
     });
-    //toast(`Producto ${producto.nombre} agregado.`);
-    };
+    toast.success(`${producto.nombre} agregado al carrito: `);
+    }
+    
+    
+    
 
     
     const vaciarCarrito = () => {
@@ -54,8 +61,8 @@ export function AppProvider ({children}) {
     };
     
     const total = carrito.reduce((sum, item) => {
-        const cantidad = item.cantidad || 1;
-        return sum + (Number(item.precio) * cantidad);
+        const cant = item.cant || 1;
+        return sum + (Number(item.precio) * cant);
     }, 0);
     
     //

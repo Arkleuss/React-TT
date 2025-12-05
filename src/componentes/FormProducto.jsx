@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useProducts } from '../context/ProductContext';
-
+import "/src/index.css";
+import "/src/componentes/styles/Productos.css";
+import { toast } from 'react-toastify';
 function FormProducto() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -72,7 +74,7 @@ function FormProducto() {
         if (modo === "agregar") {
             // Usar el contexto para agregar producto
             const nuevoProducto = await agregarProducto(productoEnviar);
-            alert(`Producto "${nuevoProducto.nombre}" agregado correctamente con ID: ${nuevoProducto.id}`);
+            toast.success(`Producto "${nuevoProducto.nombre}" agregado correctamente con ID: ${nuevoProducto.id}`);
         
         // Limpiar formulario después del éxito
         setProducto({
@@ -91,7 +93,7 @@ function FormProducto() {
         } else {
         // Usar el contexto para editar producto
         await editarProducto(productoEnviar);
-        alert('Producto actualizado correctamente');
+        toast.success('Producto actualizado correctamente');
 
         setTimeout(() => {
             navigate('/Productos');
@@ -101,7 +103,7 @@ function FormProducto() {
         setErrores({});
         
         } catch (error) {
-            alert(`Hubo un problema al ${modo === "editar" ? 'actualizar' : 'agregar'} el producto`);
+            toast.error(`Hubo un problema al ${modo === "editar" ? 'actualizar' : 'agregar'} el producto`);
             console.error('Error:', error);
         } finally {
             setCargando(false);
@@ -110,15 +112,15 @@ function FormProducto() {
 
     const cancelarEdicion = () => {
     if (modo === "editar") {
-        alert('Edición cancelada');
+        toast.info('Edición cancelada');
         navigate('/Productos');
     }
   };
 
   // Renderizado del componente
     return (
-        <form onSubmit={manejarEnvio} style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
-        <h2>{modo === "editar" ? 'Editar' : 'Agregar'} Producto</h2>
+        <form  className="formulario" onSubmit={manejarEnvio} style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', borderRadius: '8px' }}>
+        <h1>{modo === "editar" ? 'Editar' : 'Agregar'} Producto</h1>
         
         {modo === "editar" && productoRecibido && (
             <p style={{ color: '#666', fontStyle: 'italic' }}>
@@ -128,7 +130,7 @@ function FormProducto() {
         
         {/* Campo Nombre */}
         <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', color: 'whitesmoke' }}>
             Nombre: *
             </label>
             <input

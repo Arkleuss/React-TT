@@ -8,6 +8,8 @@ import "./styles/Productos.css"
 import "./styles/Carrito.css"
 import {useAppContext} from "../context/AppContext"
 import { useAuthContext } from '../context/AuthContext';
+import SEO from "./SEO";
+
 
 
 
@@ -41,6 +43,8 @@ function ListaProductos({categoria,  }) {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const {carrito, agregarAlCarrito} = useAppContext();
+
+    
     
     const manejarEliminar = (producto) => {
         // Navegar a la página de confirmación de eliminación
@@ -61,18 +65,20 @@ function ListaProductos({categoria,  }) {
         .catch((error)=>console.error("Error", error));
         setError("Hubo un problema al cargar los productos.");
     }, []);
+
+    
     
     const productosFiltrados = categoria === "todos"
         ? productos
         : productos.filter(p => p.categoria === categoria);
 
-
+    
     return (
     <div className="row">
         {productosFiltrados.map((producto) => (
             <div className="col" key={producto.id}>
                 <div className="card">
-                    <img  className= "card-img-top" src={producto.imagen} alt=" " />
+                    <img  className= "card-img-top" src={producto.imagen} alt={`${producto.nombre}`} />
                     <div className="card-body">
                         <h5 className="card-title">{producto.nombre}</h5>
                         <p className="card-text">$ {producto.precio}</p>
@@ -108,11 +114,14 @@ function ListaProductos({categoria,  }) {
 function Productos() {
     const { categoria = "todos" } = useParams();
     const {carrito, agregarAlCarrito, setCarrito} = useAppContext();
-
+    
     return (
-        <Layout>
-        {navCategorias()}
-        <ListaProductos agregarAlCarrito={agregarAlCarrito} categoria={categoria}/>
-        </Layout>
+        <>
+            <SEO />
+            <Layout>
+            {navCategorias()}
+            <ListaProductos agregarAlCarrito={agregarAlCarrito} categoria={categoria}/>
+            </Layout>
+        </>
     );
 } export default Productos;

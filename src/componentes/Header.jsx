@@ -85,7 +85,7 @@ function Header() {
                 <div className="navUserHamburguesa">
                     {isAuthenticated ? (
                         <div className="header-usuario" >
-                            <label>Hola, {usuario.nombre}!</label>
+                            <p>Hola, {usuario.nombre}!</p>
                             <button id="boton-vaciar" className="btnCerrarSesion" style={{fontSize: "0.8rem", inlineSize: "auto"}} onClick={cerrarSesion}>Cerrar sesión</button>
                         </div>
                     ) : (
@@ -97,10 +97,10 @@ function Header() {
                 </div>
                 <Link to="/" className="nav-item-h">Inicio</Link>
                 <Link to="Productos/todos" className="nav-item-h">Productos</Link>
-                <Link to="Productos/impresiones" className="nav-item-h">Impresiones</Link>
-                <Link to="Productos/dados" className="nav-item-h">Dados</Link>
-                <Link to="Productos/remeras" className="nav-item-h">Remeras</Link>
                 <Link to="Contacto" className="nav-item-h">Contacto</Link>
+                {usuario && esAdmin ? (
+                    <Link to="dashboard" className="nav-item-h" id="navDashboard">Dashboard</Link>
+                ) : null}
         </div>
         <CarritoCompras carrito={carrito} setCarrito={setCarrito} />
     </>
